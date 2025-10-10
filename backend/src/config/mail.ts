@@ -4,12 +4,12 @@ export const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'mikel.stanton5@ethereal.email',
-        pass: 'JGpE2hQerD8TCr2m5g'
+        user: 'kelvin.ziemann67@ethereal.email',
+        pass: '3Wuqfg6qS2q2WtNT8A'
     }
 });
 
-export function sendOtp(to: string, otp: string){
+export async function sendOtp(to: string, otp: string){
     const mailOptions = {
         from: `"OTP service" <mikel.stanton5@ethereal.email>`,
         to: to,
@@ -17,5 +17,11 @@ export function sendOtp(to: string, otp: string){
         text: `your OTP code is ${otp}`,
         html: `<p> your OTP code is: <strong>${otp}</strong> </p>`
     }
-    return transporter.sendMail(mailOptions).then(info => {console.log({message:"email sent" + info.response})}).catch(error => {console.error(`error sending email`, error); throw error})
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log({message:"email sent" + info.response});
+    } catch (error) {
+        console.error(`error sending email`, error);
+        throw error;
+    }
 }

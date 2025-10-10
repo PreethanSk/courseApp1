@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { ADMIN_JWT } from "../config/config.js";
-import { adminSignup, adminSignin } from "../config/admin.zod.js";
+import { adminSignup, adminSignin } from "../config/zod/admin.zod.js";
+import { adminMiddleware } from "../middleware/admin.middleware.js";
 const app = express();
 const AdminRouter = Router();
 const client = new PrismaClient();
@@ -65,5 +66,12 @@ AdminRouter.post("/signin", async (req, res) => {
         res.status(500).json({ message: "server crashed in user signin endpoint", error: error });
     }
 });
+// AdminRouter.post("/createCourse", adminMiddleware, async(req,res) => {
+//     try{
+//     }
+//     catch(error){
+//         res.status(500).json({message:"server crash in createCourse endpoint"})
+//     }
+// })
 export default AdminRouter;
 //# sourceMappingURL=admin.controller.js.map

@@ -126,8 +126,14 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   email: 'email',
   firstName: 'firstName',
+  bio: 'bio',
+  avatar_url: 'avatar_url',
+  role: 'role',
+  isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userOtp: 'userOtp',
+  otpExpiresAt: 'otpExpiresAt'
 };
 
 exports.Prisma.AdminScalarFieldEnum = {
@@ -136,18 +142,98 @@ exports.Prisma.AdminScalarFieldEnum = {
   password: 'password',
   email: 'email',
   firstName: 'firstName',
+  isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  AdminOtp: 'AdminOtp',
+  otpExpiresAt: 'otpExpiresAt'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   courseName: 'courseName',
+  shortDescription: 'shortDescription',
+  currency: 'currency',
   description: 'description',
   price: 'price',
   adminId: 'adminId',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ModuleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  sortIndex: 'sortIndex',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  lessonType: 'lessonType',
+  mediaId: 'mediaId',
+  moduleId: 'moduleId',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MediaScalarFieldEnum = {
+  id: 'id',
+  storageKey: 'storageKey',
+  url: 'url',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationSeconds: 'durationSeconds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EnrollmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  enrolledAt: 'enrolledAt',
+  progress: 'progress',
+  status: 'status'
+};
+
+exports.Prisma.LessonProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lessonId: 'lessonId',
+  completed: 'completed',
+  completedAt: 'completedAt',
+  lastWatchedAt: 'lastWatchedAt',
+  progress: 'progress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  RatingStar: 'RatingStar',
+  Title: 'Title',
+  Description: 'Description',
+  createdAt: 'createdAt',
+  UpdatedAt: 'UpdatedAt'
+};
+
+exports.Prisma.ActivityLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  lessonId: 'lessonId',
+  action: 'action',
+  meta: 'meta',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.CartScalarFieldEnum = {
@@ -173,6 +259,9 @@ exports.Prisma.PurchaseScalarFieldEnum = {
   userId: 'userId',
   totalPrice: 'totalPrice',
   purchaseStatus: 'purchaseStatus',
+  currency: 'currency',
+  provider: 'provider',
+  providerPaymentId: 'providerPaymentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -182,10 +271,38 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.StudentRole = exports.$Enums.StudentRole = {
+  student: 'student',
+  instructor: 'instructor'
+};
+
+exports.RatingStar = exports.$Enums.RatingStar = {
+  one: 'one',
+  two: 'two',
+  three: 'three',
+  four: 'four',
+  five: 'five'
+};
+
 exports.PurchaseStatus = exports.$Enums.PurchaseStatus = {
   success: 'success',
   failed: 'failed',
@@ -196,6 +313,13 @@ exports.Prisma.ModelName = {
   User: 'User',
   Admin: 'Admin',
   Course: 'Course',
+  Module: 'Module',
+  Lesson: 'Lesson',
+  Media: 'Media',
+  Enrollment: 'Enrollment',
+  LessonProgress: 'LessonProgress',
+  Review: 'Review',
+  ActivityLog: 'ActivityLog',
   Cart: 'Cart',
   CartItem: 'CartItem',
   Purchase: 'Purchase'

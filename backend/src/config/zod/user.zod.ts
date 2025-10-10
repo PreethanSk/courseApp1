@@ -16,4 +16,12 @@ export const userSignin= z.object({
 export const userForgotPassword = z.object({
     username: z.string().optional(),
     email: z.email().optional()
+}).refine((data) => data.username || data.email, {
+    message: "Either username or email must be provided"
+})
+
+export const updateUser = z.object({
+    firstName: z.string().max(15).optional(),
+    bio: z.string().max(10).optional(),
+    avatar_url: z.string().optional()
 })

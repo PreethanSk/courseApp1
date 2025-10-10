@@ -30,7 +30,8 @@ export async function userTemporaryMiddleware(req: Request, res: Response, next:
     try{
         const token = req.cookies.temporaryToken;
         if(!token){
-            res.status(403).json({message:"the token does not exist"});
+            res.status(403).json({message:"the token does not exist temporary, generate a new OTP"});
+            res.clearCookie("temporarytoken")
             return
         }
         const verify = jwt.verify(token, JWT_KEY);

@@ -23,4 +23,25 @@ export async function userMiddleware(req, res, next) {
         res.status(500).json({ message: "error in userMiddleware", error: error });
     }
 }
+export async function userTemporaryMiddleware(req, res, next) {
+    try {
+        const token = req.cookies.temporaryToken;
+        if (!token) {
+            res.status(403).json({ message: "the token does not exist temporary, generate a new OTP" });
+            res.clearCookie("temporarytoken");
+            return;
+        }
+        const verify = jwt.verify(token, JWT_KEY);
+        if (!verify) {
+            res.status(403).json({ message: "invalid token" });
+            return;
+        }
+        //@ts-ignore
+        req.userId = verify.id;
+        next();
+    }
+    catch (error) {
+        res.status(500).json({ message: "error in user temporary middleware" });
+    }
+}
 //# sourceMappingURL=user.middleware.js.map

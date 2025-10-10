@@ -33,7 +33,7 @@ model User {
   lessonProgress LessonProgress[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userOtp String @default("0")
+  userOtp String?
   otpExpiresAt DateTime?
 
   @@index([role])
