@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Admin" ADD COLUMN     "AdminOtp" BIGINT NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "userOtp" BIGINT NOT NULL DEFAULT 0;

@@ -20,8 +20,8 @@ model User {
   password String
   email String @unique
   firstName String
-  bio String
-  avatar_url String
+  bio String?
+  avatar_url String?
   role StudentRole @default(student)
   isActive Boolean @default(true)
   cart Cart?
@@ -33,6 +33,7 @@ model User {
   lessonProgress LessonProgress[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userOtp String @default("0")
 
   @@index([role])
   @@index([createdAt])
@@ -54,6 +55,7 @@ model Admin{
   isActive Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  AdminOtp String @default("0")
 
   @@index([createdAt])
   @@index([isActive])

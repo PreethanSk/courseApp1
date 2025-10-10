@@ -13,3 +13,7 @@ export const userSignin= z.object({
     password: z.string()
 })
 
+export const userForgotPassword = z.object({
+    username: z.string().optional(),
+    email: z.email().optional()
+})

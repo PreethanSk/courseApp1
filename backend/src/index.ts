@@ -10,7 +10,7 @@ app.use(cors());
 app.use(cookieParser());
 
 
-app.use("/user", userRouter);
-app.use("/admin", AdminRouter)
+app.use("/api/user", userRouter);
+app.use("/api/admin", AdminRouter)
 
 app.listen(3000, () => {console.log("server running in port 3000")});
