@@ -70,13 +70,13 @@ AdminRouter.post("/signin", async(req,res) => {
     }
 })
 
-AdminRouter.post("/createCourse", adminMiddleware, async(req,res) => {
-    try{
+// AdminRouter.post("/createCourse", adminMiddleware, async(req,res) => {
+//     try{
 
-    }
-    catch(error){
-        res.status(500).json({message:"server crash in createCourse endpoint"})
-    }
-})
+//     }
+//     catch(error){
+//         res.status(500).json({message:"server crash in createCourse endpoint"})
+//     }
+// })
 
 export default AdminRouter;
