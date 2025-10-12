@@ -1,4 +1,4 @@
-import {PrismaClient} from "../generated/prisma/index.js";
+import {PrismaClient} from "../../dist/generated/prisma/index.js";
 import express, {Router} from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -70,13 +70,17 @@ AdminRouter.post("/signin", async(req,res) => {
     }
 })
 
-// AdminRouter.post("/createCourse", adminMiddleware, async(req,res) => {
-//     try{
+AdminRouter.post("/signout",adminMiddleware,async(req,res) => {
+    try{
+      res.clearCookie("token");
+      res.status(200).json({message:"logged out successfully"})
 
-//     }
-//     catch(error){
-//         res.status(500).json({message:"server crash in createCourse endpoint"})
-//     }
-// })
+    }
+    catch(error){
+        res.status(500).json({message:"Server crashed in admin signout endpoint", error: error})
+    }
+});
+
+
 
 export default AdminRouter;

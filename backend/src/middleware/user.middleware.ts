@@ -9,7 +9,7 @@ export async function userMiddleware(req: Request, res: Response, next: NextFunc
     try{
         const token = req.cookies.token;
         if(!token){
-            res.status(403).json({message:"token does not exist"});
+            res.status(403).json({message:"token does not exist, or the user is not logged in"});
             return
         }
         const verify = jwt.verify(token, JWT_KEY);

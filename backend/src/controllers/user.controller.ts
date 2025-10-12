@@ -1,4 +1,4 @@
-import {PrismaClient} from "../generated/prisma/index.js";
+import {PrismaClient} from "../../dist/generated/prisma/index.js";
 import express, {Router} from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -491,7 +491,7 @@ userRouter.get("/getProfile", userMiddleware, async(req,res) => {
         });
 
         // Calculate total courses completed
-        const completedLessons = lessonProgress.filter(lp => lp.completed).length;
+        const completedLessons = lessonProgress.filter((lp: any) => lp.completed).length;
         const totalEnrolledCourses = enrollments.length;
 
         res.status(200).json({
@@ -508,7 +508,7 @@ userRouter.get("/getProfile", userMiddleware, async(req,res) => {
             enrollments, // same here
             lessonProgress, // same here
             reviews, // when i click it, it should hsow all the reviews, currently in the broad view it will show last 3 reviews
-            purchases // when i click it it should show all the purhcases, currently it should show like 3 for refrence
+            purchases // when i click it,it should show all the purhcases, currently it should show like 3 for refrence
         });
     }
     catch(error){
