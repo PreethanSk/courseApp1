@@ -12,3 +12,10 @@ export const adminSignin = z.object({
     email: z.string().optional(),
     password: z.string()
 })
+
+export const adminForgotPassword = z.object({
+    username: z.string().optional(),
+    email: z.email().optional()
+}).refine((data) => data.username || data.email, {
+    message: "Either username or email must be provided"
+})

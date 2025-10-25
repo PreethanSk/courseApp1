@@ -120,7 +120,7 @@ userRouter.post("/forgotPassword", forgotLimiter, async(req,res) => {
 
         const temporaryToken = jwt.sign({id: checkUser.id}, JWT_KEY, {expiresIn: "10m"});
         res.cookie("temporaryToken", temporaryToken);
-        res.json({message:"otp sent successfully to" + mailId})
+        res.json({message:"otp sent successfully to: " + mailId})
     }
     catch(error){
         console.error("Forgot password error:", error);

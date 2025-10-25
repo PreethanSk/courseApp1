@@ -4,8 +4,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import {z} from "zod";
 import {ADMIN_JWT} from "../config/config.js";
-import {adminSignup, adminSignin} from "../config/zod/admin.zod.js";
+import {adminSignup, adminSignin, adminForgotPassword} from "../config/zod/admin.zod.js";
 import {adminMiddleware} from "../middleware/admin.middleware.js";
+import {generateOtp} from "../config/config.js";
+import {sendOtp} from "../config/mail.js";
 
 const app = express();
 const AdminRouter = Router();
@@ -81,6 +83,42 @@ AdminRouter.post("/signout",adminMiddleware,async(req,res) => {
     }
 });
 
+AdminRouter.post("/forgotPassword", async(req,res) => {
+    try{
+      const zodParse = adminForgotPassword.safeParse(req.body);
+      if(!zodParse.success){
+          const zodError = z.treeifyError(zodParse.error);
+          res.status(403).json({message:"zod error", error: zodError});
+          return
+      }
+
+      const {username, email} = zodParse.data
+      const whereCondition = [];
+      if(username) whereCondition.push({username: username});
+      if(email) whereCondition.push({email: email});
+
+      const userData = await client.admin.findFirst({where: {OR: whereCondition}});
+      if(!userData){
+          res.status(403).json({message:"this user does not exist"});
+          return
+      }
+      const mailId = userData.email;
+      const resetOtp = generateOtp();
+      const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+       await sendOtp(mailId, resetOtp);
+
+       await client.admin.update({where: {id: userData.id}, data: {AdminOtp: resetOtp, otpExpiresAt: expiresAt}});
+
+      const temporaryToken = jwt.sign({id: userData.id}, JWT_KEY, {expiresIn: "10m"});
+      res.cookie("temporaryToken", temporaryToken);
+      res.json({message:`otp generated and sent to the ${mailId} successfully!`});
+
+
+    }
+    catch(error){
+        res.status(500).json({message:"server crashed in admin forgot password endpoint"})
+    }
+})
 
 
 export default AdminRouter;
