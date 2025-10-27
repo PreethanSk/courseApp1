@@ -13,4 +13,4 @@ app.use(cookieParser());
 app.use("/api/user", userRouter);
 app.use("/api/admin", AdminRouter)
 
-app.listen(3000, () => {console.log("server running in port 3000")});
+app.listen(3001, () => {console.log("server running in port 3000")});

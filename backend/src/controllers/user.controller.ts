@@ -517,4 +517,24 @@ userRouter.get("/getProfile", userMiddleware, async(req,res) => {
     }
 })
 
+// userRouter.get("/enrolledCourses", userMiddleware, async(req,res) =>{
+//     try{
+//         //@ts-ignore
+//         const userId = req.userId;
+
+//     }
+//     catch(error){
+//         res.status(500).json({message:"Server crased in get enrolled courses endpoint", error: error})
+//     }
+// })
+
+userRouter.get("/testRouter", async(req,res) => {
+    try{
+        res.json({message:"test router response"});
+    }
+    catch(error){
+        res.status(500).json({messagE:"server crashed"})
+    }
+})
+
 export default userRouter

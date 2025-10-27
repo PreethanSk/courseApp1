@@ -120,5 +120,6 @@ AdminRouter.post("/forgotPassword", async(req,res) => {
     }
 })
 
+// /users - gets all users, lets you filter users(of ur course) by role, status, cretaion date.
 
 export default AdminRouter;
